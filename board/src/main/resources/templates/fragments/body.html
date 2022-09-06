@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
+
+<body th:fragment="main-body">
+	<th:block layout:fragment="modal"></th:block>
+	
+	
+	<div class="container" id = "header-menu">
+    	<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom" id="menu-header">
+      	<h1 id = "mainpage-title">
+				<a th:href="@{/post/main}"><img alt="BATRO"
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MTJfNTQg/MDAxNjYwMjc1MjY5MzE0.Iy6eieeFrEup1ctBUulCMl_oqNkqf8gs4zM10egCjTog.ftMvRl9BJ52ebqLIsq6cpG_KDxyAgF5Y73VYupJG3-Yg.PNG.sjkor1005/image.png?type=w800"></a>
+		</h1>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id = "menu">
+        <li><a th:href="@{/post/main}" class="nav-link px-2 link-secondary" style="background:none;">Home</a></li>
+        <li><a th:href="@{/analysis/analysis}" class="nav-link px-2 link-dark" style="background:none;">분석</a></li>
+        <li><a th:href="@{/post/qnalist}" class="nav-link px-2 link-dark" style="background:none;">문제/해결</a></li>
+        <li><a th:href="@{/post/list}" class="nav-link px-2 link-dark" style="background:none;">자유게시판</a></li>
+   
+      </ul>
+
+      <div class="col-md-3 text-end" id="button-menu">
+        <button type="button" id = "loginbtn" class="loginbtn1">Login</button>
+        <button type="button" id = "signupbtn" class="signupbtn1">Sign-up</button>
+      </div>
+    </header>
+  </div>
+  	<div class="menuphoto">
+  		
+  		<div th:if="${#strings.equals(mainUrl,'/post/main')}">
+			<div id="freeimg">
+				<img
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MjZfMzEg/MDAxNjYxNDczMDE2ODM4.1giYJOqrebnRy1uEYyS_r1CUQSeafSs-daaMmJYBWxYg.Q-VyvEDM66E4x_2ZtSDxdGOF8PYCm7EH6vepaWZ3gKUg.PNG.sjkor1005/%EB%9E%9C%EB%94%A92.png?type=w800"
+					style="object-fit: fill; position: static; " >
+			</div>
+		</div>
+			
+		<div th:if="${#strings.equals(listUrl,'/post/list')}">
+			<div id="freeimg">
+				<img
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MTFfNjMg/MDAxNjYwMjA0NTMzMTM1.2WZF0Y3zuiqTzwSmvGdana5fGZhzyp768so1JDUuAtcg.S7BBL_lQhEmRnwbkJa_cXBuW19u8f__5p59YkJY6nekg.JPEG.sjkor1005/2205_w046_n004_124b_p1_124.jpg?type=w800"
+					style=" position: relative;">
+			</div>
+		</div>
+		<div th:if="${#strings.equals(qnaUrl,'/post/qnalist')}">
+			<div id="freeimg">
+				<img
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MTdfMTQ1/MDAxNjYwNzEzNDA4MjAz.BzyP8wBXKz_gBBpAO_Eub5-rwAKV8aNnuW8yiWOSndwg.4C4i81vaHInRCRTRBWfe8tFqcNuLz18NHQ6fEZuRil0g.JPEG.sjkor1005/2204_w046_n004_90b_p1_90.jpg?type=w800"
+					style="position: relative;">
+			</div>
+		</div>
+		<div th:if="${#strings.equals(analysisUrl,'/analysis/analysis')}">
+			<div id="freeimg_anal">
+				<img id="freeimg_anal"
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MjJfMjcy/MDAxNjYxMTU1MzYyMzA0.BlbKtGuIjbTkmvbC_Yj2EOtS9r-WHRtJnWwfFNl7F5kg.YSDX7oQn19PYfInB4YEDY16i3439lH9uj081bfM_n04g.PNG.sjkor1005/Untitled_%287%29.png?type=w800"
+					>
+			</div>
+		</div>
+		<div th:if="${#strings.equals(userUrl,'/user/login')}">
+			<div id="freeimg">
+				<img
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MTdfMjc1/MDAxNjYwNzEzNTA4ODU3.l4ggAH-DyXgqXPIigLOP0BBUiXMhXfoyrgJFicx3-rIg.9R2zKLKrBTYPgsfou6Xey2c7OcBzFxpNmPF7kkKR71Mg.JPEG.sjkor1005/welcome1.jpg?type=w800"
+					style=" position: relative;">
+			</div>
+		</div>
+			
+		<div th:if="${#strings.equals(signupLink,'/user/signup')}">
+			<div id="freeimg">
+				<img
+					src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MTdfMjc1/MDAxNjYwNzEzNTA4ODU3.l4ggAH-DyXgqXPIigLOP0BBUiXMhXfoyrgJFicx3-rIg.9R2zKLKrBTYPgsfou6Xey2c7OcBzFxpNmPF7kkKR71Mg.JPEG.sjkor1005/welcome1.jpg?type=w800"
+					style=" position: relative;">
+			</div>
+		</div>
+		
+  	
+  	
+  	
+  	
+  	
+
+		
+		
+	</div> 
+
+
+	<div id="wrapper">
+		<div class="main-content">
+			<div class="row row-inline-block small-spacing">
+				<div class="col-xs-12">
+					<div class="box-content">
+						<div class="clearfix">
+							<h4 class="box-title pull-left"></h4>
+
+							<th:block layout:fragment="search"></th:block>
+						</div>
+
+						<th:block layout:fragment="content"></th:block>
+
+						<th:block layout:fragment="paging"></th:block>
+					</div>
+
+					<th:block layout:fragment="add-content"></th:block>
+				</div>
+			</div>
+
+			<footer class="footer">
+				<ul class="list-inline">
+					<li>@지하철 커뮤니티사이트 BARTRO</li>
+				</ul>
+			</footer>
+		</div>
+	</div>
+	<script th:src="@{/scripts/jquery.min.js}"></script>
+	<script th:src="@{/scripts/common.js}"></script>
+	<script th:src="@{/scripts/main.js}"></script>
+	<script th:src="@{/scripts/commonlogincheck.js}"></script>
+	<script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+	<script th:src="@{/plugin/common/moment.js}"></script>
+	
+	<th:block layout:fragment="script"></th:block>
+</body>
+</html>

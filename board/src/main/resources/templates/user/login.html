@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+
+<head>
+
+	<title>로그인</title>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<body>
+
+
+<th:block layout:fragment="content">
+	<link rel="stylesheet" href="../css/login.css">
+	<div id = login>
+	<img src="https://mblogthumb-phinf.pstatic.net/MjAyMjA4MTFfOSAg/MDAxNjYwMjA2NjgxMTUw.OvYgCu6iFMqZKr2pPpQtmTrZo6OxL1L4TX_EMcttUJUg.NG1Zg6-rI8dqHq67Nbz8TuWVThGb_-bsVuoQ9551az8g.JPEG.sjkor1005/BATRO_LOGO1.jpg?type=w800">
+	<h1 id = "login-text" class="h3 mb-3 font-weight-normal">Login</h1>
+	</div>
+	<form class="form-signin" th:action="@{/user/login}" th:object="${user}" method="post" >
+    
+
+		<div>
+			<label for="inputID" class="sr-only">ID</label>
+			<input type="text" id="id" class="form-control" placeholder="ID" >
+		</div>
+		<br>
+		<div>	
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" id="pw" class="form-control" placeholder="Password" >
+		</div>
+		
+		<div id = signbutton>
+			<button id = "login1" class="btn btn-lg btn-primary btn-block" type="button">로그인</button>
+			<button id = "findid" class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href = 'findid'">id 찾기</button>
+			<button id = "findpw" class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href = 'findpw'">pw 찾기</button>
+			
+		</div>
+		    </form>
+    
+ </th:block> 
+ 
+ <th:block layout:fragment="script">
+	<script th:inline="javascript">
+	
+	// 로그인 되어있을 때 접근하지 못하게
+	$.ajax({
+		type: "post",
+		async: false,
+		url: "/login-check",
+		success:  function (data) {
+			if(data == true){
+				alert("잘못된 접근입니다.");
+				location.replace('/post/main');
+			}
+		}
+	})
+	
+	$("#login1").click(function(){
+		
+		const id = $("#id").val();
+		const pw = $("#pw").val();
+		
+		$.ajax({
+		type: "post",
+		async: false,
+		url: "/user/login-check",
+		data: {id: id, pw: pw},
+		success: function (data) {
+			if(data == true){
+				window.location.href = "../post/main";
+			} else{
+				alert("아이디와 비밀번호를 다시 확인해주세요.");
+			}
+		}
+		})
+	});
+	
+	</script>
+</th:block>
+
+</body>
+</html>

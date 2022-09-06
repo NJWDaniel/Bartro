@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/basic">
+
+<head>
+<meta charset="UTF-8">
+<title>메인페이지</title>
+</head>
+<th:block layout:fragment="content">
+<link rel="stylesheet" href="../css/style.css">
+
+	<body>
+		<div id="maincategori">
+			<div id = "freeboardtext" ><a th:href="@{../post/list}">자유게시판</a></div>
+			<div id = "qnaboardtext"><a th:href="@{../post/qnalist}">문제/해결</a></div>
+		</div>
+		<div id="post-table">
+
+			<table class="table table-hover">
+
+				<thead>
+
+					<tr>
+
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+					</tr>
+
+				</thead>
+				<tbody id="list">
+
+				</tbody>
+
+			</table>
+
+
+
+			<table class="table table-hover" id="qnapost-table">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>말머리</th>
+						<th>제목</th>
+						<th>작성자</th>
+					</tr>
+				</thead>
+				<tbody id="qnalist">
+
+
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+
+		<div id = "newstitle">관련뉴스</div>
+		<table class="table table-hover" id="qnapost-table">
+			<thead>
+				<tr>
+					<th>언론사</th>
+					<th>제목</th>
+					<th>내용</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each = "news : ${mainResponse}">
+					<td th:text = "${news.newsPress}"></td>
+					<td th:text = "${news.newsTitle}" th:onclick="'location.href=\''+ @{${news.newsLink}} + '\''"   style="cursor:pointer;"></td>
+					<td th:text = "${news.newsinfo}"></td>
+
+
+				</tr>
+
+			</tbody>
+
+		</table>
+
+
+
+
+	</body>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+            /*<![CDATA[*/
+
+            window.onload = () => {
+            /* 	setQueryStringParams(); */
+              
+                findAllPost();
+                QnafindAllPost();
+            }
+            
+     
+
+
+            // Qna게시글 리스트 조회
+            function findAllPost() {
+
+                const list = [[ ${response2.list} ]];
+                if ( !list.length ) {
+                    document.getElementById('list').innerHTML = '<td colspan="5">검색된 결과가 없습니다.</td>';
+                    drawPage();
+                    return false;
+                }
+
+                const pagination = [[ ${response2.pagination} ]];
+                const params = [[ ${params} ]];
+                let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+
+                drawList(list, num);
+              
+            }
+            //게시글 리스트 받아오기
+            function QnafindAllPost() {
+
+                const list = [[ ${response.list} ]];
+                if ( !list.length ) {
+                    document.getElementById('qnalist').innerHTML = '<td colspan="5">검색된 결과가 없습니다.</td>';
+                    drawPage();
+                    return false;
+                }
+
+                const pagination = [[ ${response.pagination} ]];
+                const params = [[ ${params} ]];
+                let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+
+                qnaDrawList(list, num);
+              
+            }
+
+
+//Qna리스트 페이지 이동
+	            // 리스트 HTML draw
+	     function qnaDrawList(list, num) {
+
+      	  let html = '';
+      	  list.forEach(obj => {
+       	     html += `
+         	       <tr>
+                    <td>${obj.idx}</td>
+                    <td>${obj.headTitle}</td>
+                    <td class="text-left"><a href="javascript: void(0);" onclick="goQnaViewPage(${obj.idx});">${obj.title}</a></td>
+                    <td>${obj.writer}</td>
+                </tr>
+            `;
+        })
+
+        document.getElementById('qnalist').innerHTML = html;
+    }
+	   
+
+	     function drawList(list, num) {
+
+	      	  let html = '';
+	      	  list.forEach(obj => {
+	       	     html += `
+	         	       <tr>
+	                    <td>${obj.idx}</td>
+	                    <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${obj.idx});">${obj.title}</a></td>
+	                    <td>${obj.writer}</td>
+	                </tr>
+	            `;
+	        })
+
+	        document.getElementById('list').innerHTML = html;
+	    }
+         // Qna게시글 상세 페이지로 이동
+	   		function goQnaViewPage(idx) {
+	        const queryString = (location.search) ? location.search + `&idx=${idx}` : `?idx=${idx}`;
+	        location.href = '/post/qnaview' + queryString;
+	    } 
+         
+         //자유게시판으로이동
+	   		function goViewPage(idx) {
+		        const queryString = (location.search) ? location.search + `&idx=${idx}` : `?idx=${idx}`;
+		        location.href = '/post/view' + queryString;
+		    } 
+         
+	 
+
+	   	   /*]]>*/
+	        </script>
+</th:block>
+
+</html>
