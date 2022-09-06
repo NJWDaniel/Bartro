@@ -1,0 +1,52 @@
+Linear regression 선형회귀 모델 구현.
+선형회귀란? = 주어진 x와 y 값을 가지고 서로간의 관계를 파악하는것
+새로운 x값이 주어졌을때, y값을 예측하는것.
+
+ex)
+x_data = [1,2,3]
+y_data = [1,2,3] 
+이라고 한다면,
+
+x와 y의 상관관계를 설명하기 위한 변수를 -1.0 부터 1.0까지 균등분포 uniform distribution 을 가진 무작위 값으로 초기화 한다.
+
+W = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+B = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+
+자료를 입력받을 플레이스 홀더를 설정한다.
+
+X = tf.placeholder(tf.float32, name ="X")
+Y = tf.placeholder(tf.float32, name ="Y")
+
+x가 주어졌을때, Y를 만들어 낼 수 있는 W와 B를 찾는것
+W는 weight, b는 bias.
+
+    :한 쌍 (x,y)의 데이터에 대한 손실값을 계산하는 함수.
+        실제값과 모델로 예측ㄱ한 값이 얼마나 차이가 나는가를 나타내는 값.
+        Cost function 이라고도 한다.
+
+이 손실값들을 전체 데이터에 대해 구했을 때 cost 라고한다. cost가 낮아야 좋은것임
+
+즉,loss function 이 작을수록 그모델이 주어진 x 값에 대해 y값을 정확하게 예측한것.
+
+함수식. => Cost = tf. reduce_mean(tf.square(hypothesis =Y))
+
+Gradient descent Optimizer 함수를 사용해서 손실값을 최소화 하는 연산 그래프를 생성해야한다.
+W와 B의 값을 변경해가면서 손실값을 최소화 시키도록 하는데, 함수의 기굴기를 수하고, 기울기가 낮은 쪽으로 계속 이동시키는 알고리즘이다.
+learning_rate(학습률)을 매개변수로 하는데 이것은 즉, 학습을 얼마나 '급하게' 할것인가에 대한 변수이다.
+학습률이 크면 최적의 손실값을 못찾고 지나치게되고, 너무 작으면 학습 속도가 느려진다.
+이것을 hyperparameter라고 하는데, 계속 변경해가며 최적의 값을 찾는 것도 중요하다.
+
+
+# 신경망 모델 구성.
+특징 xd와 레이블 y의 관계를 알아내는 모델.
+
+self.X = tf.placeholder(tf.float32, shape=None)
+self.Y = tf.placeholder(tf.float32, shape=None) 실측값을 넣어서 학습시킬것이기 떄문
+
+self.W = tf.Variable(tf.random_uniform([1], -100, 100), 'weight')
+self.b = tf.Variable(tf.random_uniform([1], -100, 100), 'bias')
+
+weight는 [입력층(틍징수),출력층(레이블수)]
+bias는 레이블수, weight를 곱하고 bias를 더한 결과를 activation ReLU에 적용하면 신경망 구성끝
+
+
